@@ -1,5 +1,7 @@
 const background = {
-  main: "#161B22",
+  // main: "#161B22",
+  main: "#010409",
+  second: "#161B22",
   input: "#010409",
   button: "#238636",
   buttonHover: "#2EA043"

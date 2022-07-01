@@ -30,7 +30,7 @@ export const Form: React.FC = () => {
     flexDirection: "column",
     border: "none",
     margin: "0px",
-    padding: `${spacing.s01} 0`
+    padding: `${spacing.s01} 0`,
   }
 
   const errorMessageStyle: Style = {
@@ -40,6 +40,8 @@ export const Form: React.FC = () => {
 
   const inputStyle: Style = {
     outline: "none",
+		width: "250px",
+		height: "35px",
     borderRadius: borderRadius.rounded,
     backgroundColor: colors.background.input,
     color: colors.fontColor.light,
@@ -64,6 +66,7 @@ export const Form: React.FC = () => {
   return (
     <>
         <form onSubmit={handleSubmit(onSubmit)}>
+					<div className={css({display: "flex", gap: spacing.s03, alignItems: "stretch", justifyContent: "space-evenly"})}>
           <fieldset className={css(fieldsetStyle)}>
             <label htmlFor='searchPhrase'>Search phrase: </label>
             <input {...register("searchPhrase", {required: "This field is required."})} id="searchPhrase" className={css(inputStyle)} placeholder="Type a phrase..."></input>
@@ -83,11 +86,14 @@ export const Form: React.FC = () => {
             </select>
             <p className={css(errorMessageStyle)}>{errors.language?.message}</p>
           </fieldset>
-          <button className={css(buttonStyle)}>Search</button>
+					</div>
+					<div className={css({height: spacing.s03})}></div>
+					<div className={css({display: "flex", justifyContent: "center"})}>
+          	<button className={css(buttonStyle)}>Search</button>
+					</div>
         </form>
     </>
   );
 }
-
 
 

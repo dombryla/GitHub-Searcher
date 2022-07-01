@@ -7,6 +7,7 @@ export const fontSize = {
   lg: '1.125rem',
   xl: '1.25rem',
   xl2: '1.5rem',
+  xl4: "2.25rem"
 }
 
 export const spacing = {
