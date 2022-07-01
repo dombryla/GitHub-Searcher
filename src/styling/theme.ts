@@ -59,11 +59,16 @@ export const borderRadius = {
   full: "9999px",
 }
 
+export const border = {
+  main: `1px solid ${colors.fontColor.light}`
+}
+
 export const theme = {
   fontSize,
   spacing,
   colors,
-  borderRadius
+  borderRadius,
+  border
 }
 
 export type Theme = typeof theme

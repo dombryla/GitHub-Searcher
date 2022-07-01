@@ -15,7 +15,7 @@ type Language = "js" | "go" | "java"
 export const Form: React.FC = () => {
 
   const {
-    css, theme:{spacing, colors, fontSize, borderRadius}
+    css, theme:{spacing, colors, fontSize, borderRadius, border}
   } = useFela()
 
   const { register, handleSubmit,  formState: { errors } } = useForm<SearchInputs>();
@@ -44,7 +44,21 @@ export const Form: React.FC = () => {
     backgroundColor: colors.background.input,
     color: colors.fontColor.light,
     padding: `${spacing.s005} ${spacing.s02}`,
-    border: `1px solid ${colors.fontColor.light}`,
+    border: border.main,
+  }
+
+  const buttonStyle: Style = {
+    backgroundColor: colors.background.button,
+    borderRadius: borderRadius.rounded,
+    color: colors.fontColor.white,
+    padding: `${spacing.s005} ${spacing.s03}`,
+    border: "none",
+    cursor: "pointer",
+    nested: {
+        ":hover": {
+          backgroundColor: colors.background.buttonHover
+        },
+    }
   }
 
   return (
@@ -63,14 +77,17 @@ export const Form: React.FC = () => {
           <fieldset className={css(fieldsetStyle)}>
             <label htmlFor='language'>Language: </label>
             <select {...register("language", {required: "This field is required."})}  id="language" className={css(inputStyle)}>
-              <option value="js">java script</option>
-              <option value="go">go</option>
-              <option value="java">java</option>
+              <option value="js">Java Script</option>
+              <option value="go">Go</option>
+              <option value="java">Java</option>
             </select>
             <p className={css(errorMessageStyle)}>{errors.language?.message}</p>
           </fieldset>
-          <button>Search</button>
+          <button className={css(buttonStyle)}>Search</button>
         </form>
     </>
   );
 }
+
+
+
