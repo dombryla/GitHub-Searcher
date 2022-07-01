@@ -1,12 +1,14 @@
 import React from 'react';
-import './App.css';
+import { useFela, Style } from './styling'
 
-function App() {
+
+export const App: React.FC = () => {
+  const {css} = useFela()
+
   return (
-    <div className="App">
+    <div className={css({backgroundColor: "red"})}>
         GitHub Searcher
     </div>
   );
 }
 
-export default App;

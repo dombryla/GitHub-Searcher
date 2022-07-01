@@ -1,0 +1,5 @@
+export { createRenderer } from './fela-renderer'
+export { fontSize, spacing } from './theme'
+export { FelaProvider } from './fela-provider'
+export { useFela } from './fela'
+export type { Style } from './fela'
