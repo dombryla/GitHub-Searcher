@@ -47,10 +47,23 @@ export const spacing = {
   px: '1px',
 }
 
+export const borderRadius = {
+  none: "0px",
+  sm: "0.125rem",
+  rounded: "0.25rem",
+  md: "0.375rem",
+  lg: "0.5rem",
+  xl: "0.75rem",
+  xl2: "1rem",
+  xl3: "1.5rem",
+  full: "9999px",
+}
+
 export const theme = {
   fontSize,
   spacing,
   colors,
+  borderRadius
 }
 
 export type Theme = typeof theme
