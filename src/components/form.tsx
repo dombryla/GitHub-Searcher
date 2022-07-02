@@ -1,10 +1,10 @@
 import React from 'react';
 import { useFela, Style } from '../styling'
 import { useForm, SubmitHandler } from "react-hook-form";
-import { SearchInputs } from '../model/models';
+import { SearchInput } from '../model/models';
 
 export type FormProps = {
-	onSubmit: SubmitHandler<SearchInputs>
+	onSubmit: SubmitHandler<SearchInput>
 }
 
 export const Form: React.FC<FormProps> = ({onSubmit}) => {
@@ -13,7 +13,7 @@ export const Form: React.FC<FormProps> = ({onSubmit}) => {
     css, theme:{spacing, colors, fontSize, borderRadius, border}
   } = useFela()
 
-  const { register, handleSubmit,  formState: { errors } } = useForm<SearchInputs>();
+  const { register, handleSubmit,  formState: { errors } } = useForm<SearchInput>();
 
 
 

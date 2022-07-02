@@ -3,7 +3,7 @@ import { useFela, Style, spacing } from './styling'
 import { Form } from "./components/form"
 import { Panel } from "./components/panel"
 import { search } from './api';
-import { SearchInputs } from './model/models';
+import { SearchInput, SearchItem } from './model/models';
 import { SubmitHandler } from "react-hook-form"
 import { useAsyncCallback } from 'react-async-hook';
 
@@ -29,24 +29,59 @@ export const App: React.FC = () => {
 
   const data = useAsyncCallback(search);
 
-  const onClick: SubmitHandler<SearchInputs> = ({searchPhrase, userName, language}: SearchInputs) => {
+  const onClick: SubmitHandler<SearchInput> = ({searchPhrase, userName, language}: SearchInput) => {
     data.execute({searchPhrase, userName, language})
   }
+
+  const tableStyle: Style = {
+    borderCollapse: "collapse"
+  }
+
 
   console.log(data)
   return (
     <div className={css(rule)}>
         <div className={css({fontSize: fontSize.xl4})}>GitHub Searcher</div>
         <Panel>
-          <Form onSubmit={onClick}/>
+            <Form onSubmit={onClick}/>
         </Panel>
-        <Panel>
-          <div>tabelka</div>
+        <Panel backgroundColor={colors.background.main}>
+
+        {data.status === "success" ? 
+        <table className={css(tableStyle)}>
+          <thead
+          className={css({
+            opacity: "1",
+            fontSize: fontSize.xl2,
+            backgroundColor: colors.background.second
+          })}
+        >
+          <tr>
+            <th>Name </th>
+            <th>Description</th>
+            <th>User</th>
+          </tr>
+        </thead>
+        <div className={css({padding: spacing.s025})}></div>
+        <tbody className={css({textAlign: "center"})}>
+          {data.result!.map((item: SearchItem) => {
+            return(
+              <tr className={css({
+                borderBottom: `1px solid ${colors.background.second}`})}>
+                <td>
+                  <a href={item.url}>{item.name}</a>  
+                </td>
+                <td>{item.description}</td>
+                <td>{item.login}</td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>:
+      <div>brak danych</div>
+      }
         </Panel>
     </div>
   );
 }
-
-
-
 

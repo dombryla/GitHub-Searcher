@@ -1,6 +1,5 @@
 const background = {
-  // main: "#161B22",
-  main: "#010409",
+   main: "#0D1117",
   second: "#161B22",
   input: "#010409",
   button: "#238636",

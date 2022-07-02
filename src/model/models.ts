@@ -6,7 +6,8 @@ export type SearchItem = {
     avatarUrl: string
 }
 
-export type SearchInputs = {
+
+export type SearchInput = {
     searchPhrase: string,
     userName: string,
     language:  "js" | "go" | "java"
