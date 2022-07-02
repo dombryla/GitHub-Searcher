@@ -20,7 +20,6 @@ export const App: React.FC = () => {
     theme: { colors, fontSize, spacing },
   } = useFela()
 
-
   const rule: Style = {
     backgroundColor: colors.background.main,
     minHeight: '100vh',
@@ -62,8 +61,11 @@ export const App: React.FC = () => {
           case 'error':
             return <div>Something went bad</div>
           case 'success':
-            return (
-              <table className={css({borderCollapse: "collapse"})}>
+            if(data.result.length === 0 ){
+              return <div>User {searchParams.get("userName")} does not have any file with entered data</div>
+            }
+            return (            
+              <table className={css({borderCollapse: "collapse",paddingBottom: spacing.s05})}>
               <thead className={css({
                 opacity: "1",
                 fontSize: fontSize.xl2,
@@ -76,14 +78,13 @@ export const App: React.FC = () => {
                   <th>User</th>
                 </tr>
               </thead>
-              <div className={css({padding: spacing.s025})}></div>
               <tbody className={css({textAlign: "center"})}>
                 {data.result!.map((item: SearchItem, i: number) => {
                   return(
                     <>
                     <tr className={css({borderBottom: `1px solid ${colors.background.second}`})} key={item.url}>
                       <td>
-                        <Link url={item.url} title={item.name} />
+                        <Link url={item.url} title={item.name} key={item.url}/>
                       </td>
                       <td>{item.description}</td>
                       <td 
@@ -96,7 +97,7 @@ export const App: React.FC = () => {
                 })}
               </tbody>
             </table>
-            )
+          )
           default:
             return <div>Use filter panel to get files</div>
         }
