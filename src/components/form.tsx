@@ -2,6 +2,7 @@ import React from 'react';
 import { useFela, Style } from '../styling'
 import { useForm, SubmitHandler } from "react-hook-form";
 import { SearchInput } from '../model/models';
+import { Button } from './button';
 
 export type FormProps = {
 	onSubmit: SubmitHandler<SearchInput>
@@ -14,8 +15,6 @@ export const Form: React.FC<FormProps> = ({onSubmit}) => {
   } = useFela()
 
   const { register, handleSubmit,  formState: { errors } } = useForm<SearchInput>();
-
-
 
   const fieldsetStyle: Style = {
     display: "flex",
@@ -41,49 +40,35 @@ export const Form: React.FC<FormProps> = ({onSubmit}) => {
     border: border.main,
   }
 
-  const buttonStyle: Style = {
-    backgroundColor: colors.background.button,
-    borderRadius: borderRadius.rounded,
-    color: colors.fontColor.white,
-    padding: `${spacing.s005} ${spacing.s03}`,
-    border: "none",
-    cursor: "pointer",
-    nested: {
-        ":hover": {
-          backgroundColor: colors.background.buttonHover
-        },
-    }
-  }
-
   return (
     <>
-        <form onSubmit={handleSubmit(onSubmit)}>
-					<div className={css({display: "flex", gap: spacing.s03, alignItems: "stretch", justifyContent: "space-evenly"})}>
-          <fieldset className={css(fieldsetStyle)}>
-            <label htmlFor='searchPhrase'>Search phrase: </label>
-            <input {...register("searchPhrase", {required: "This field is required."})} id="searchPhrase" className={css(inputStyle)} placeholder="Type a phrase..."></input>
-            <p className={css(errorMessageStyle)}>{errors.searchPhrase?.message}</p>
-          </fieldset>
-          <fieldset className={css(fieldsetStyle)}>
-            <label htmlFor='userName'>User Name: </label>
-            <input {...register("userName", {required: "This field is required."})} className={css(inputStyle)} placeholder="Type a user name..."></input>
-            <p className={css(errorMessageStyle)}>{errors.userName?.message}</p>
-          </fieldset>
-          <fieldset className={css(fieldsetStyle)}>
-            <label htmlFor='language'>Language: </label>
-            <select {...register("language", {required: "This field is required."})}  id="language" className={css(inputStyle)}>
-              <option value="js">Java Script</option>
-              <option value="go">Go</option>
-              <option value="java">Java</option>
-            </select>
-            <p className={css(errorMessageStyle)}>{errors.language?.message}</p>
-          </fieldset>
-					</div>
-					<div className={css({height: spacing.s03})}></div>
-					<div className={css({display: "flex", justifyContent: "center"})}>
-          	<button className={css(buttonStyle)}>Search</button>
-					</div>
-        </form>
+      <form onSubmit={handleSubmit(onSubmit)}>
+				<div className={css({display: "flex", gap: spacing.s03, alignItems: "stretch", justifyContent: "space-evenly"})}>
+        <fieldset className={css(fieldsetStyle)}>
+          <label htmlFor='searchPhrase'>Search phrase: </label>
+          <input {...register("searchPhrase", {required: "This field is required."})} id="searchPhrase" className={css(inputStyle)} placeholder="Type a phrase..."></input>
+          <p className={css(errorMessageStyle)}>{errors.searchPhrase?.message}</p>
+        </fieldset>
+        <fieldset className={css(fieldsetStyle)}>
+          <label htmlFor='userName'>User Name: </label>
+          <input {...register("userName", {required: "This field is required."})} className={css(inputStyle)} placeholder="Type a user name..."></input>
+          <p className={css(errorMessageStyle)}>{errors.userName?.message}</p>
+        </fieldset>
+        <fieldset className={css(fieldsetStyle)}>
+          <label htmlFor='language'>Language: </label>
+          <select {...register("language", {required: "This field is required."})}  id="language" className={css(inputStyle)}>
+            <option value="js">Java Script</option>
+            <option value="go">Go</option>
+            <option value="java">Java</option>
+          </select>
+          <p className={css(errorMessageStyle)}>{errors.language?.message}</p>
+        </fieldset>
+				</div>
+				<div className={css({height: spacing.s03})}></div>
+				<div className={css({display: "flex", justifyContent: "center"})}>
+          <Button>Search</Button>
+				</div>
+      </form>
     </>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFela, Style } from '../styling'
+import { Button } from './button';
 
 export type AvatarProps = {
     url: string
@@ -25,7 +26,9 @@ const rule: Style = {
   return(
     <div className={css(rule)}>
       <img src={url} alt="avatar"></img>
-      <button onClick={onClick}>Close</button>
+			<div className={css({height: spacing.s04})}></div>
+      <Button onClick={onClick}>Close</Button>
     </div>
   )
 }
+
