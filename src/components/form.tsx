@@ -1,18 +1,13 @@
 import React from 'react';
 import { useFela, Style } from '../styling'
 import { useForm, SubmitHandler } from "react-hook-form";
+import { SearchInputs } from '../model/models';
 
-
-type SearchInputs = {
-  searchPhrase: string,
-  userName: string,
-  language: Language
+export type FormProps = {
+	onSubmit: SubmitHandler<SearchInputs>
 }
 
-type Language = "js" | "go" | "java"
-
-
-export const Form: React.FC = () => {
+export const Form: React.FC<FormProps> = ({onSubmit}) => {
 
   const {
     css, theme:{spacing, colors, fontSize, borderRadius, border}
@@ -21,9 +16,6 @@ export const Form: React.FC = () => {
   const { register, handleSubmit,  formState: { errors } } = useForm<SearchInputs>();
 
 
-  const onSubmit: SubmitHandler<SearchInputs> = ({searchPhrase, userName, language}) => {
-    console.log(`https://api.github.com/search/code?q=${searchPhrase} user:${userName} language:${language}`)
-  }
 
   const fieldsetStyle: Style = {
     display: "flex",
