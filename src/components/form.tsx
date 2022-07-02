@@ -3,6 +3,8 @@ import { useFela, Style } from '../styling'
 import { useForm, SubmitHandler } from "react-hook-form";
 import { SearchInput } from '../model/models';
 import { Button } from './button';
+import { useSearchParams } from 'react-router-dom';
+
 
 export type FormProps = {
 	onSubmit: SubmitHandler<SearchInput>
@@ -14,7 +16,12 @@ export const Form: React.FC<FormProps> = ({onSubmit}) => {
     css, theme:{spacing, colors, fontSize, borderRadius, border}
   } = useFela()
 
-  const { register, handleSubmit,  formState: { errors } } = useForm<SearchInput>();
+  const [searchParams] = useSearchParams();
+  const defaultValues = getDefaultValuesFromQuery(searchParams)
+
+
+  const { register, handleSubmit,  formState: { errors } } = useForm<SearchInput>({defaultValues});
+
 
   const fieldsetStyle: Style = {
     display: "flex",
@@ -74,3 +81,10 @@ export const Form: React.FC<FormProps> = ({onSubmit}) => {
 }
 
 
+const getDefaultValuesFromQuery = (query: URLSearchParams): SearchInput =>{
+  return({
+    searchPhrase: query.get("searchPhrase") || "" ,
+    userName: query.get("userName") || "",
+    language:  "js"
+  })
+}

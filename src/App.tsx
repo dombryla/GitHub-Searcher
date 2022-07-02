@@ -8,6 +8,7 @@ import { SubmitHandler } from "react-hook-form"
 import { useAsyncCallback } from 'react-async-hook';
 import { Link } from './components/link';
 import { Avatar } from './components/avatar';
+import { useSearchParams } from 'react-router-dom';
 
 
 export const App: React.FC = () => {
@@ -32,13 +33,13 @@ export const App: React.FC = () => {
     gap: spacing.s04
   }
 
+  const [searchParams, setSearchParams] = useSearchParams();
   const data = useAsyncCallback(search);
 
   const onClick: SubmitHandler<SearchInput> = ({searchPhrase, userName, language}: SearchInput) => {
     data.execute({searchPhrase, userName, language})
+    setSearchParams({searchPhrase, userName, language})
   }
-
-
 
   const showModal = (url: string): void =>{
     setShowAvatar(url)
@@ -47,13 +48,11 @@ export const App: React.FC = () => {
   const hideModal = (): void => {
     setShowAvatar("")
   }
-
-
   return (
     <div className={css(rule)}>
       <div className={css({fontSize: fontSize.xl4})}>GitHub Searcher</div>
       <Panel>
-        <Form onSubmit={onClick}/>
+        <Form onSubmit={onClick} />
       </Panel>
       <Panel backgroundColor={colors.background.main}>
       {(() => {
