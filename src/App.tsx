@@ -6,6 +6,7 @@ import { search } from './api';
 import { SearchInput, SearchItem } from './model/models';
 import { SubmitHandler } from "react-hook-form"
 import { useAsyncCallback } from 'react-async-hook';
+import { Link } from './components/link';
 
 
 export const App: React.FC = () => {
@@ -69,7 +70,7 @@ export const App: React.FC = () => {
               <tr className={css({
                 borderBottom: `1px solid ${colors.background.second}`})}>
                 <td>
-                  <a href={item.url}>{item.name}</a>  
+                  <Link url={item.url} title={item.name} />
                 </td>
                 <td>{item.description}</td>
                 <td>{item.login}</td>
