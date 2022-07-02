@@ -58,42 +58,52 @@ export const App: React.FC = () => {
         <Form onSubmit={onClick}/>
       </Panel>
       <Panel backgroundColor={colors.background.main}>
-        {data.status === "success" ? 
-        <table className={css(tableStyle)}>
-          <thead className={css({
-            opacity: "1",
-            fontSize: fontSize.xl2,
-            backgroundColor: colors.background.second
-          })}
-          >
-            <tr>
-              <th>Name</th>
-              <th>Description</th>
-              <th>User</th>
-            </tr>
-          </thead>
-          <div className={css({padding: spacing.s025})}></div>
-          <tbody className={css({textAlign: "center"})}>
-            {data.result!.map((item: SearchItem, i: number) => {
-              return(
-                <tr className={css({borderBottom: `1px solid ${colors.background.second}`})} key={i}>
-                  <td>
-                    <Link url={item.url} title={item.name} />
-                  </td>
-                  <td>{item.description}</td>
-                  <td onClick={showModal}>
-                    {item.login}
-                  </td>
-                  {showAvatar && <Avatar url={item.avatarUrl}  onClick={hideModal} />}
+      {(() => {
+        switch (data.status) {
+          case 'loading':
+            return <div>Loading...</div>
+          case 'error':
+            return <div>Something went bad</div>
+          case 'success':
+            return (
+              <table className={css(tableStyle)}>
+              <thead className={css({
+                opacity: "1",
+                fontSize: fontSize.xl2,
+                backgroundColor: colors.background.second
+              })}
+              >
+                <tr>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>User</th>
                 </tr>
-              )
-            })}
-          </tbody>
-        </table>:
-        <div>brak danych</div>
+              </thead>
+              <div className={css({padding: spacing.s025})}></div>
+              <tbody className={css({textAlign: "center"})}>
+                {data.result!.map((item: SearchItem, i: number) => {
+                  return(
+                    <tr className={css({borderBottom: `1px solid ${colors.background.second}`})} key={i}>
+                      <td>
+                        <Link url={item.url} title={item.name} />
+                      </td>
+                      <td>{item.description}</td>
+                      <td 
+                        className={css({cursor: "pointer", nested: {":hover":{color: colors.fontColor.light}}})} onClick={showModal}>
+                          {item.login}
+                      </td>
+                      {showAvatar && <Avatar url={item.avatarUrl}  onClick={hideModal} />}
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+            )
+          default:
+            return <div>Use filter panel to get files</div>
         }
+      })()}
       </Panel>
-
     </div>
   );
 }
