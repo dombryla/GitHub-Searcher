@@ -81,7 +81,6 @@ export const App: React.FC = () => {
               <tbody className={css({textAlign: "center"})}>
                 {data.result!.map((item: SearchItem, i: number) => {
                   return(
-                    <>
                     <tr className={css({borderBottom: `1px solid ${colors.background.second}`})} key={item.url}>
                       <td>
                         <Link url={item.url} title={item.name} key={item.url}/>
@@ -92,7 +91,6 @@ export const App: React.FC = () => {
                           {item.login}
                       </td>
                     </tr>
-                    </>
                   )
                 })}
               </tbody>
