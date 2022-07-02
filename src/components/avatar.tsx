@@ -5,12 +5,14 @@ import { Button } from './button';
 export type AvatarProps = {
     url: string
     onClick: () =>void
-  }
+}
   
 export const Avatar: React.FC<AvatarProps> = ({url, onClick}) =>{
 const { css, theme:{colors, border, spacing, borderRadius} } = useFela()
     
 const rule: Style = {
+  display: "flex",
+  flexDirection: "column",
   position: "fixed",
   top: "50%",
   left: "50%",

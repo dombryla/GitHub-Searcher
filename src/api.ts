@@ -5,9 +5,13 @@ const url = "https://api.github.com/search/code"
 export const search = async (
   {searchPhrase, userName,language}: SearchInput
 ): Promise<any> => {
-  const response = await fetch(`${url}?q=${searchPhrase} user:${userName} language:${language}`)
+  const response = await fetch(`${url}?q=${searchPhrase} user:${userName} language:${language}`,{
+    method: "GET",
+  })
   if (!response.ok) throw Error("Data fetching problem")
+  console.log(response.headers)
   const data = await response.json()
+  console.log(data)
 	const result = parseSearchResponse(data)
   return result
 }
@@ -19,5 +23,6 @@ const parseSearchResponse = (data: any): SearchItem =>{
       description: item.repository.description,
       login: item.repository.owner.login,
 			avatarUrl: item.repository.owner.avatar_url,
+      sha: item.sha
   }))
 }

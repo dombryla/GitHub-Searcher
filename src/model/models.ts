@@ -4,6 +4,7 @@ export type SearchItem = {
     description: string
     login: string
     avatarUrl: string
+    key : string 
 }
 
 

@@ -12,7 +12,7 @@ import { Avatar } from './components/avatar';
 
 export const App: React.FC = () => {
 
-  const [showAvatar, setShowAvatar] = React.useState(false)
+  const [showAvatar, setShowAvatar] = React.useState("")
 
   const {
     css,
@@ -38,16 +38,14 @@ export const App: React.FC = () => {
     data.execute({searchPhrase, userName, language})
   }
 
-  const tableStyle: Style = {
-    borderCollapse: "collapse"
-  }
 
-  const showModal = (): void =>{
-    setShowAvatar(true)
+
+  const showModal = (url: string): void =>{
+    setShowAvatar(url)
   }
 
   const hideModal = (): void => {
-    setShowAvatar(false)
+    setShowAvatar("")
   }
 
 
@@ -66,7 +64,7 @@ export const App: React.FC = () => {
             return <div>Something went bad</div>
           case 'success':
             return (
-              <table className={css(tableStyle)}>
+              <table className={css({borderCollapse: "collapse"})}>
               <thead className={css({
                 opacity: "1",
                 fontSize: fontSize.xl2,
@@ -83,17 +81,18 @@ export const App: React.FC = () => {
               <tbody className={css({textAlign: "center"})}>
                 {data.result!.map((item: SearchItem, i: number) => {
                   return(
-                    <tr className={css({borderBottom: `1px solid ${colors.background.second}`})} key={i}>
+                    <>
+                    <tr className={css({borderBottom: `1px solid ${colors.background.second}`})} key={item.url}>
                       <td>
                         <Link url={item.url} title={item.name} />
                       </td>
                       <td>{item.description}</td>
                       <td 
-                        className={css({cursor: "pointer", nested: {":hover":{color: colors.fontColor.light}}})} onClick={showModal}>
+                        className={css({cursor: "pointer", nested: {":hover":{color: colors.fontColor.light}}})} onClick={() => showModal(item.avatarUrl)}>
                           {item.login}
                       </td>
-                      {showAvatar && <Avatar url={item.avatarUrl}  onClick={hideModal} />}
                     </tr>
+                    </>
                   )
                 })}
               </tbody>
@@ -104,6 +103,7 @@ export const App: React.FC = () => {
         }
       })()}
       </Panel>
+      {showAvatar && <Avatar url={showAvatar}  onClick={hideModal} />}
     </div>
   );
 }
