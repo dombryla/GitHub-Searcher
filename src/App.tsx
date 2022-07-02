@@ -4,7 +4,8 @@ import { Form } from "./components/form"
 import { Panel } from "./components/panel"
 import { search } from './api';
 import { SearchInputs } from './model/models';
-import {SubmitHandler} from "react-hook-form"
+import { SubmitHandler } from "react-hook-form"
+import { useAsyncCallback } from 'react-async-hook';
 
 
 export const App: React.FC = () => {
@@ -26,11 +27,13 @@ export const App: React.FC = () => {
     gap: spacing.s04
   }
 
+  const data = useAsyncCallback(search);
+
   const onClick: SubmitHandler<SearchInputs> = ({searchPhrase, userName, language}: SearchInputs) => {
-    // console.log(`https://api.github.com/search/code?q=${searchPhrase} user:${userName} language:${language}`)
-    search({searchPhrase, userName, language}).then(item => {console.log(item)})
+    data.execute({searchPhrase, userName, language})
   }
 
+  console.log(data)
   return (
     <div className={css(rule)}>
         <div className={css({fontSize: fontSize.xl4})}>GitHub Searcher</div>
@@ -38,10 +41,12 @@ export const App: React.FC = () => {
           <Form onSubmit={onClick}/>
         </Panel>
         <Panel>
-          <div>eloo</div>
+          <div>tabelka</div>
         </Panel>
     </div>
   );
 }
+
+
 
 
