@@ -85,7 +85,7 @@ export const App: React.FC = () => {
                       <td>
                         <Link url={item.url} title={item.name} key={item.url}/>
                       </td>
-                      <td>{item.description}</td>
+                      <td>{item.description || "-"}</td>
                       <td 
                         className={css({cursor: "pointer", nested: {":hover":{color: colors.fontColor.light}}})} onClick={() => showModal(item.avatarUrl)}>
                           {item.login}
